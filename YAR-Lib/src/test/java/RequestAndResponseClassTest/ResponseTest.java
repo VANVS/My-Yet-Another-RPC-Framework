@@ -1,7 +1,7 @@
 package RequestAndResponseClassTest;
 
-import bean.RPCResponse;
-import bean.Status;
+import beans.RPCResponse;
+import beans.Status;
 import org.junit.Test;
 
 import java.io.*;

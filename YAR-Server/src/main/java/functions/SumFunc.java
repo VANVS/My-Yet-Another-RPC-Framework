@@ -3,24 +3,34 @@ package functions;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @className: SumFunc
+ * @packageName: functions
+ * @author 王如轩
+ * @description: 实现RemoteFunc
+ **/
 public class SumFunc extends RemoteFunc {
-    private static SumFunc INSTANCE = new SumFunc();
-    private static String NAME = "sum";
-    /*static {
-        OptionAndFuncMap.AddFunc("sum", INSTANCE);
-    }*/
+    private static final SumFunc INSTANCE = new SumFunc();
+
     public static SumFunc getInstance(){
         return INSTANCE;
     }
 
     public static String getNAME() {
-        return NAME;
+        return "sum";
     }
 
     public static String ErrorInfo = "";
 
+    /**
+     * @param params: 参数列表
+     * @return Object
+     * @author 王如轩
+     * @description 实现 float sum(float a, float b)函数功能
+     */
     @Override
     public Object function(List<Object> params){
+        // 判断参数类型是否正确
         List<String> correctTypes = new ArrayList<>();
         correctTypes.add(Float.class.getSimpleName());
         correctTypes.add(Float.class.getSimpleName());

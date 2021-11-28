@@ -1,4 +1,4 @@
-import bean.SocketParam;
+import beans.SocketParam;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,12 +15,15 @@ import java.util.concurrent.Executors;
 
 import static junit.framework.TestCase.*;
 
-public class TestCilent {
+/**
+ * @author 王如轩
+ * @description 测试客户端
+ */
+public class TestClient {
     private static final String ip = SocketParam.DEFAULT_IP;
     private static final int port = SocketParam.DEFAULT_PORT;
 
     private static YARServer server;
-    //private static YARClientStub clientStub;
 
     private static ExecutorService threadPool = Executors.newCachedThreadPool();
 
@@ -28,10 +31,13 @@ public class TestCilent {
     public static void init() {
         server = new YARServer(ip, port);
         new Thread(server).start();
-        //clientStub = new YARClientStub(ip, port);
     }
 
 
+    /**
+     * @author 王如轩
+     * @description 测试方法，模拟测试多客户端多线程发送请求的情况下是否能得到正确的结果
+     */
     @Test
     public void TestMutiCilents(){
         int clientNums = 5;
@@ -58,6 +64,11 @@ public class TestCilent {
         server.stop();
     }
 
+    /**
+     * @className:  伪装的任务请求，随机请求服务端的函数，并判断结果是否正确
+     * @author 王如轩
+     * @description TODO
+     */
     private static class MockTask implements Callable<Boolean>{
         Random random = new Random();
         private final YARClientStub clientStub;

@@ -1,4 +1,4 @@
-package bean;
+package beans;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -10,42 +10,44 @@ import java.util.List;
 import static Utils.StringIO.writeString;
 import static Utils.StringIO.readString;
 
+/**
+ * @className: RPCRequest
+ * @packageName: beans
+ * @author 王如轩
+ * @description: 封装TCP请求，包含请求标识符，函数名，函数参数列表，并实现可序列化Externalizable接口
+ **/
 public class RPCRequest implements Externalizable {
-    private String requestID;
-    private String FuncName;
-    //private String methodName;
-    private List<Object> params;
-    //private final List<String> types;
+    private String requestID;       // 请求唯一标识符
+    private String FuncName;        // 请求函数名
+    private List<Object> params;    // 函数参数列表
 
-
+    /**
+     * 提供三种不同的构造函数
+     **/
     public RPCRequest(){
         this.params = new ArrayList<>();
-        //this.types = new ArrayList<>();
     }
 
     public RPCRequest(String FuncName) {
         this.FuncName = FuncName;
-        //this.methodName = methodName;
         this.params = new ArrayList<>();
-        //this.types = new ArrayList<>();
     }
 
     public RPCRequest(String FuncName,List<Object> params) {
         this.FuncName = FuncName;
-        //this.methodName = methodName;
         this.params = params;
-        //this.types = new ArrayList<>();
     }
 
+    /**
+     * 重写序列化和反序列化方法
+     **/
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         writeString(out, requestID);
         writeString(out, FuncName);
-        //writeString(out, methodName);
         out.writeInt(params.size());
-        for(int i=0; i<params.size();i++){
-            //writeString(out, types.get(i));
-            out.writeObject(params.get(i));
+        for (Object param : params) {
+            out.writeObject(param);
         }
     }
 
@@ -53,15 +55,19 @@ public class RPCRequest implements Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException{
         requestID = readString(in);
         FuncName = readString(in);
-        //methodName = readString(in);
         params = new ArrayList<>();
         int para_num = in.readInt();
         for(int i=0; i < para_num;i++){
-            //types.add(readString(in));
             params.add(in.readObject());
         }
     }
 
+    /**
+     * @param args: 参数列表
+     * @return ：void
+     * @author 王如轩
+     * @description 添加参数列表到request中
+     */
     public void addParams(Object... args) {
         params.addAll(Arrays.asList(args));
     }
@@ -70,12 +76,10 @@ public class RPCRequest implements Externalizable {
         params.addAll(args);
     }
 
-    /*public void addTypes(Class<?>... types) {
-        for (Class<?> type : types) {
-            this.types.add(type.getName());
-        }
-    }*/
-
+    /**
+     * @getter
+     * @setter
+     */
     public String getRequestID() {
         return requestID;
     }
@@ -84,9 +88,6 @@ public class RPCRequest implements Externalizable {
         this.requestID = requestID;
     }
 
-    /*public void setFuncName(String funcName) {
-        FuncName = funcName;
-    }*/
 
     public String getFuncName() {
         return FuncName;
@@ -96,18 +97,12 @@ public class RPCRequest implements Externalizable {
         return params;
     }
 
-    /*public List<String> getTypes() {
-        return types;
-    }*/
-
     @Override
     public String toString() {
         return "RPCRequest{" +
                 "requestID='" + requestID + '\'' +
                 ", FuncName='" + FuncName + '\'' +
-                //", methodName='" + methodName + '\'' +
                 ", params=" + params +
-                //", types=" + types +
                 '}';
     }
 }

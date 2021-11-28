@@ -2,21 +2,31 @@ package functions;
 
 import java.util.List;
 
+/**
+ * @className: UppercaseFunc
+ * @packageName: functions
+ * @author 王如轩
+ * @description: 实现Uppercase
+ **/
 public class UppercaseFunc extends RemoteFunc {
-    private static UppercaseFunc INSTANCE = new UppercaseFunc();
-    private static String NAME = "uppercase";
+    private static final UppercaseFunc INSTANCE = new UppercaseFunc();
 
     public static String ErrorInfo = "";
-    /*static {
-        OptionAndFuncMap.AddFunc("uppercase", INSTANCE);
-    }*/
+
     public static UppercaseFunc getInstance(){
         return INSTANCE;
     }
     public static String getNAME() {
-        return NAME;
+        return "uppercase";
     }
+
     @Override
+    /**
+     * @param params: 参数列表
+     * @return Object
+     * @author 王如轩
+     * @description 实现 string uppercase(str)函数功能
+     */
     public Object function(List<Object> params){
         if (params.size() != 1 || !(params.get(0) instanceof String)){
             ErrorInfo = "uppercase 函数参数错误，需要参数为："+String.class.getSimpleName()+"，您的参数为：" + RemoteFunc.GetArgsTypes(params);

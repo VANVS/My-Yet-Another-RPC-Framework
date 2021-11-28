@@ -1,11 +1,9 @@
 package RequestAndResponseClassTest;
 
 import java.io.*;
-import java.util.List;
 
-import bean.Status;
 import org.junit.Test;
-import bean.RPCRequest;
+import beans.RPCRequest;
 
 import static junit.framework.TestCase.*;
 

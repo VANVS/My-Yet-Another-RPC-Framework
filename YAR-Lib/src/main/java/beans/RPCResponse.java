@@ -1,4 +1,4 @@
-package bean;
+package beans;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -7,12 +7,20 @@ import java.io.ObjectOutput;
 
 import static Utils.StringIO.writeString;
 import static Utils.StringIO.readString;
-
+/**
+ * @className: RPCResponse
+ * @packageName: beans
+ * @author 王如轩
+ * @description: 封装TCP相应，包含对应请求唯一标识符，服务器状态，执行函数结果，并实现可序列化Externalizable接口
+ **/
 public class RPCResponse implements Externalizable {
     private Status status;
     private String requestID;
     private Object result;
 
+    /**
+     * 提供2种不同的构造函数
+     **/
     public RPCResponse() {
     }
 
@@ -21,7 +29,10 @@ public class RPCResponse implements Externalizable {
         this.requestID = requestID;
         this.result = result;
     }
-    
+
+    /**
+     * 重写序列化和反序列化方法
+     **/
     @Override
     public void writeExternal(ObjectOutput out) throws IOException{
         writeString(out, status.toString());
@@ -36,6 +47,10 @@ public class RPCResponse implements Externalizable {
         result = in.readObject();
     }
 
+    /**
+     * @getter
+     * @setter
+     */
     public Status getStatus() {
         return status;
     }
